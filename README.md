@@ -172,4 +172,4 @@ The application produces colorful, emoji-enhanced output:
 6. 🚪 Exit
 ```
 
-This enhanced NotifyAfrica SMS Pro application showcases VintLang as a powerful, feature-rich programming language capable of building professional-grade applications with modern UX and robust functionality.
+This enhanced NotifyAfrica SMS Pro application showcases VintLang as a powerful, feature-rich programming language capable of building professional-grade applications with modern UX and robust functionality.# notify.africa.vint
