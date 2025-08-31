@@ -8,10 +8,11 @@ import crypto
 import random
 import sysinfo
 import string
-import logger
+import logger_pkg
 
 // Load environment variables
 dotenv.load(".env")
+// logger_pkg.log("INFO", "Environment variables loaded")
 
 // Global config
 let app_name = "NotifyAfrica SMS Pro"
@@ -76,10 +77,10 @@ let sendVerificationSMS = func() {
     
     // Enhanced error handling and logging
     if (response.type && response.type() == "ERROR") {
-        logger.log("ERROR", "Failed to send verification SMS: " + response.message() + " [Request ID: " + request_id + "]")
+        logger_pkg.log("ERROR", "Failed to send verification SMS: " + response.message() + " [Request ID: " + request_id + "]")
         total_failed = total_failed + 1
     } else {
-        logger.log("SUCCESS", "Verification SMS sent to " + phone + " [Code: " + code + "] [Request ID: " + request_id + "]")
+        logger_pkg.log("SUCCESS", "Verification SMS sent to " + phone + " [Code: " + code + "] [Request ID: " + request_id + "]")
         total_sent = total_sent + 1
     }
 }
@@ -99,10 +100,10 @@ let sendSMSFlow = func() {
     
     // Enhanced error handling with better logging
     if (response.type && response.type() == "ERROR") {
-        logger.log("ERROR", "Failed to send SMS: " + response.message() + " [Request ID: " + request_id + "]")
+        logger_pkg.log("ERROR", "Failed to send SMS: " + response.message() + " [Request ID: " + request_id + "]")
         total_failed = total_failed + 1
     } else {
-        logger.log("SUCCESS", "SMS sent to " + string(len(recipients)) + " recipients [Request ID: " + request_id + "]")
+        logger_pkg.log("SUCCESS", "SMS sent to " + string(len(recipients)) + " recipients [Request ID: " + request_id + "]")
         total_sent = total_sent + len(recipients)
     }
 }
@@ -223,7 +224,7 @@ let initApp = func() {
     }
     
     println("✅ Initialization complete!\n")
-    // logger.log("INFO", "Application started - " + app_name + " v" + version)
+    // logger_pkg.log("INFO", "Application started - " + app_name + " v" + version)
 }
 
 // Start the application
@@ -245,7 +246,7 @@ while (true) {
     } else if (choice == "6") {
         println("\n👋 Thank you for using " + app_name + "!")
         println("🎉 Goodbye!")
-        logger.log("INFO", "Application terminated by user")
+        logger_pkg.log("INFO", "Application terminated by user")
         break
     } else {
         println("\n❌ Invalid choice. Please try again.")
