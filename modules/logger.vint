@@ -1,0 +1,27 @@
+import time 
+import os
+import crypto
+
+package logger {
+    let logResult = func(level, logMessage) {
+        let log_file = "notifyafrica.log"
+        let timestamp = time.format(time.now(), "2006-01-02 15:04:05")
+        
+        // Add security hash using crypto module
+        let hash = crypto.hashMD5(logMessage + "security_salt")
+        let fullLog = "[" + timestamp + "] [" + level + "] " + logMessage + " (Hash: " + hash + ")\n"
+        
+        os.writeFile(log_file, fullLog, "append")
+        
+        // Display with better formatting
+        if (level == "ERROR") {
+            error logMessage
+        } else if (level == "SUCCESS") {
+            println("✅ [SUCCESS] " + logMessage)
+        } else if (level == "INFO") {
+            info logMessage
+        } else {
+            println("📢 [" + level + "] " + logMessage)
+        }
+    }
+}
