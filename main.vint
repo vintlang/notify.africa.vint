@@ -128,9 +128,9 @@ let showDashboard = func() {
     let total = total_sent + total_failed
     if (total > 0) {
         let successRate = (total_sent * 100) / total
-           success("Rate: " + string(successRate) + "%")
+        success "Rate: " + string(successRate) + "%" 
     } else {
-        println("   ✅ Success Rate: N/A (No SMS sent yet)")
+        success "Rate: N/A (No SMS sent yet)" 
     }
     
     // Environment status using dotenv module
