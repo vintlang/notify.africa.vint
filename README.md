@@ -1,4 +1,4 @@
-# Enhanced NotifyAfrica SMS Pro
+# Enhanced NotifyAfrica SMS
 
 ## Overview
 
