@@ -12,7 +12,7 @@ import logger_pkg
 
 // Load environment variables
 dotenv.load(".env")
-// logger_pkg.log("INFO", "Environment variables loaded")
+logger_pkg.log("INFO", "Environment variables loaded")
 
 // Global config
 let app_name = "NotifyAfrica SMS Pro"
@@ -224,7 +224,7 @@ let initApp = func() {
     }
     
     println("✅ Initialization complete!\n")
-    // logger_pkg.log("INFO", "Application started - " + app_name + " v" + version)
+    logger_pkg.log("INFO", "Application started - " + app_name + " v" + version)
 }
 
 // Start the application
