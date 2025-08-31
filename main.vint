@@ -8,6 +8,7 @@ import crypto
 import random
 import sysinfo
 import string
+import logger
 
 // Load environment variables
 dotenv.load(".env")
@@ -17,29 +18,6 @@ let app_name = "NotifyAfrica SMS Pro"
 let version = "2.0.0"
 let total_sent = 0
 let total_failed = 0
-
-// Enhanced logging with security hash and better formatting
-let logResult = func(level, logMessage) {
-    let log_file = "notifyafrica.log"
-    let timestamp = time.format(time.now(), "2006-01-02 15:04:05")
-    
-    // Add security hash using crypto module
-    let hash = crypto.hashMD5(logMessage + "security_salt")
-    let fullLog = "[" + timestamp + "] [" + level + "] " + logMessage + " (Hash: " + hash + ")\n"
-    
-    os.writeFile(log_file, fullLog, "append")
-    
-    // Display with better formatting
-    if (level == "ERROR") {
-        error logMessage
-    } else if (level == "SUCCESS") {
-        println("✅ [SUCCESS] " + logMessage)
-    } else if (level == "INFO") {
-        info logMessage
-    } else {
-        println("📢 [" + level + "] " + logMessage)
-    }
-}
 
 // Generate random verification code using random module
 let generateVerificationCode = func() {
@@ -98,10 +76,10 @@ let sendVerificationSMS = func() {
     
     // Enhanced error handling and logging
     if (response.type && response.type() == "ERROR") {
-        logResult("ERROR", "Failed to send verification SMS: " + response.message() + " [Request ID: " + request_id + "]")
+        logger.log("ERROR", "Failed to send verification SMS: " + response.message() + " [Request ID: " + request_id + "]")
         total_failed = total_failed + 1
     } else {
-        logResult("SUCCESS", "Verification SMS sent to " + phone + " [Code: " + code + "] [Request ID: " + request_id + "]")
+        logger.log("SUCCESS", "Verification SMS sent to " + phone + " [Code: " + code + "] [Request ID: " + request_id + "]")
         total_sent = total_sent + 1
     }
 }
@@ -121,10 +99,10 @@ let sendSMSFlow = func() {
     
     // Enhanced error handling with better logging
     if (response.type && response.type() == "ERROR") {
-        logResult("ERROR", "Failed to send SMS: " + response.message() + " [Request ID: " + request_id + "]")
+        logger.log("ERROR", "Failed to send SMS: " + response.message() + " [Request ID: " + request_id + "]")
         total_failed = total_failed + 1
     } else {
-        logResult("SUCCESS", "SMS sent to " + string(len(recipients)) + " recipients [Request ID: " + request_id + "]")
+        logger.log("SUCCESS", "SMS sent to " + string(len(recipients)) + " recipients [Request ID: " + request_id + "]")
         total_sent = total_sent + len(recipients)
     }
 }
@@ -245,7 +223,7 @@ let initApp = func() {
     }
     
     println("✅ Initialization complete!\n")
-    // logResult("INFO", "Application started - " + app_name + " v" + version)
+    // logger.log("INFO", "Application started - " + app_name + " v" + version)
 }
 
 // Start the application
@@ -267,7 +245,7 @@ while (true) {
     } else if (choice == "6") {
         println("\n👋 Thank you for using " + app_name + "!")
         println("🎉 Goodbye!")
-        logResult("INFO", "Application terminated by user")
+        logger.log("INFO", "Application terminated by user")
         break
     } else {
         println("\n❌ Invalid choice. Please try again.")

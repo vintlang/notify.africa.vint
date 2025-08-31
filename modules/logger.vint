@@ -3,8 +3,8 @@ import os
 import crypto
 
 package logger {
-    let logResult = func(level, logMessage) {
-        let log_file = "notifyafrica.log"
+    let log = func(level, logMessage) {
+        let log_file = "./notifyafrica.log"
         let timestamp = time.format(time.now(), "2006-01-02 15:04:05")
         
         // Add security hash using crypto module
